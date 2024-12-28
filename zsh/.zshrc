@@ -130,3 +130,73 @@ for new_path in "${paths_to_add[@]}"; do
 done
 
 export PATH
+
+# General Navigation and File Management
+alias ll='ls -alF'                    # Detailed file list with types
+alias la='ls -A'                      # List all except . and ..
+alias l='ls -CF'                      # Compact file list
+alias ..='cd ..'                      # Go up one directory
+alias ...='cd ../..'                  # Go up two directories
+alias c='clear'                       # Clear terminal screen
+alias mkdirp='mkdir -p'               # Create nested directories
+alias rmr='rm -rf'                    # Force delete (use with caution)
+alias cpv='cp -iv'                    # Copy with confirmation and verbose
+alias mvv='mv -iv'                    # Move with confirmation and verbose
+alias tree='find . | sed -e "s/[^-][^\\/]*\\//--/g;s/^/   /;s/--/|--/"' # Visualize directory tree
+alias dls='ls | grep -i'              # Filter files by name
+
+# System and Resource Management
+alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder' # Flush DNS cache
+alias cls='sudo purge'                # Free inactive memory
+alias meminfo='vm_stat'               # Display memory usage statistics
+alias cpuinfo='top -l 1 | grep "CPU usage"' # Show current CPU usage
+alias loadavg='uptime | awk -F "load averages: " "{print \$2}"' # Show load average
+alias diskspace='df -h'               # Show disk usage in human-readable format
+alias usage='du -sh *'                # Show sizes of files/folders in current directory
+alias iostat='iostat -w 1'            # Show real-time CPU, disk I/O stats
+alias freeports='sudo lsof -iTCP -sTCP:LISTEN -n -P' # Show open TCP ports
+alias top10mem='ps aux | sort -rk +4 | head -10' # Top 10 memory-intensive processes
+alias top10cpu='ps aux | sort -rk +3 | head -10' # Top 10 CPU-intensive processes
+
+# Networking
+alias myip='curl ifconfig.me'         # Show public IP address
+alias localip='ipconfig getifaddr en0' # Show local IP address
+alias pingtest='ping -c 5 google.com' # Quick network test
+alias connections='netstat -anp tcp' # Show all network connections
+alias speedtest='curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -' # Check internet speed
+alias netinfo='ifconfig'              # Show network interfaces
+alias hosts='sudo nano /etc/hosts'    # Edit hosts file
+alias traceroute='traceroute google.com' # Trace network route to a server
+
+# Docker Commands
+alias dps='docker ps'                 # List running Docker containers
+alias dpa='docker ps -a'              # List all Docker containers
+alias di='docker images'              # List all Docker images
+alias drm='docker rm $(docker ps -aq)' # Remove all stopped containers
+alias drmi='docker rmi $(docker images -q)' # Remove all images
+alias dlogs='docker logs'             # Show logs for a container
+alias dexec='docker exec -it'         # Execute a command in a container
+alias dstop='docker stop $(docker ps -q)' # Stop all running containers
+alias dprune='docker system prune -af --volumes' # Clean unused Docker resources
+alias dstart='docker start $(docker ps -aq)' # Start all containers
+
+# Git Shortcuts
+alias gst='git status'               # Show git status
+alias gl='git pull'                  # Pull latest changes
+alias gp='git push'                  # Push changes
+alias ga='git add'                   # Add files to staging
+alias gc='git commit -m'             # Commit with message
+alias gco='git checkout'             # Checkout branch
+alias gbr='git branch'               # List branches
+alias gdiff='git diff'               # Show git diff
+alias gamend='git commit --amend'    # Amend the last commit
+alias greset='git reset --hard'      # Reset branch to last commit
+
+# Miscellaneous Utilities
+alias brewup='brew update && brew upgrade && brew cleanup' # Update Homebrew
+alias dockrestart='killall Dock'      # Restart macOS Dock
+alias uuidgen='uuidgen | tr "[:upper:]" "[:lower:]"' # Generate lowercase UUIDs
+alias calc='bc -l'                    # Quick calculations
+alias editrc='$EDITOR ~/.zshrc'       # Edit `.zshrc` file
+alias sourcerc='source ~/.zshrc'      # Reload `.zshrc` file
+alias pbcopy='xclip -selection clipboard' # Cross-platform clipboard copy
