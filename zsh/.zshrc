@@ -200,3 +200,5 @@ alias calc='bc -l'                    # Quick calculations
 alias editrc='$EDITOR ~/.zshrc'       # Edit `.zshrc` file
 alias sourcerc='source ~/.zshrc'      # Reload `.zshrc` file
 alias pbcopy='xclip -selection clipboard' # Cross-platform clipboard copy
+export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
