@@ -156,8 +156,8 @@ alias diskspace='df -h'               # Show disk usage in human-readable format
 alias usage='du -sh *'                # Show sizes of files/folders in current directory
 alias iostat='iostat -w 1'            # Show real-time CPU, disk I/O stats
 alias freeports='sudo lsof -iTCP -sTCP:LISTEN -n -P' # Show open TCP ports
-alias top10mem='ps aux | sort -rk +4 | head -10' # Top 10 memory-intensive processes
-alias top10cpu='ps aux | sort -rk +3 | head -10' # Top 10 CPU-intensive processes
+alias top10cpu='ps aux | sort -rk 3 | head -10' # Top 10 memory-intensive processes
+alias top10mem='ps aux | sort -rk 4 | head -10' # Top 10 CPU-intensive processes
 
 # Networking
 alias myip='curl ifconfig.me'         # Show public IP address
