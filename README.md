@@ -1,5 +1,5 @@
 # Fanny Pack 🛠️  
-![Project Logo](assets/logo.png)
+![Project Logo](./assets/logo.webp)
 
 **Fanny Pack** is a curated set of tools, scripts, and configurations designed to streamline the setup and management of a macOS environment. Whether you're setting up a new machine or enhancing an existing setup, Fanny Pack has you covered with powerful automation scripts and configurations.
 
