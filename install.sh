@@ -42,6 +42,16 @@ if [ -d "$REPO_PATH/scripts" ]; then
     echo "Scripts have been copied to $HOME/bin."
 fi
 
+# Run the setup_cronjobs.zsh script
+if [ -f "$REPO_PATH/scripts/setup_cronjobs.zsh" ]; then
+    echo "Executing setup_cronjobs.zsh..."
+    chmod +x "$REPO_PATH/scripts/setup_cronjobs.zsh"
+    "$REPO_PATH/scripts/setup_cronjobs.zsh"
+    echo "Cron jobs have been set up."
+else
+    echo "setup_cronjobs.zsh script not found in $REPO_PATH/scripts!"
+fi
+
 # Source .zshrc to apply changes
 if command -v zsh &> /dev/null; then
     echo "Sourcing $ZSHRC..."
