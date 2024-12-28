@@ -42,12 +42,6 @@ if [ -d "$REPO_PATH/scripts" ]; then
     echo "Scripts have been copied to $HOME/bin."
 fi
 
-# Add bin/ to PATH in .zshrc if not already present
-if [[ ":$PATH:" != *":$HOME/bin:"* ]]; then
-    echo 'export PATH="$HOME/bin:$PATH"' >> "$ZSHRC"
-    echo 'PATH updated to include $HOME/bin'
-fi
-
 # Source .zshrc to apply changes
 if command -v zsh &> /dev/null; then
     echo "Sourcing $ZSHRC..."

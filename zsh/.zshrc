@@ -5,9 +5,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
-
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -120,6 +117,10 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 # Define an array of paths to be added to PATH
 paths_to_add=(
+  "$HOME/bin"
+  "$HOME/bin"
+  "$HOME/.local/bin"
+  "/usr/local/bin"
   "/opt/homebrew/opt/postgresql@16/bin"
   "/usr/X11/bin"
 )
@@ -200,5 +201,3 @@ alias calc='bc -l'                    # Quick calculations
 alias editrc='$EDITOR ~/.zshrc'       # Edit `.zshrc` file
 alias sourcerc='source ~/.zshrc'      # Reload `.zshrc` file
 alias pbcopy='xclip -selection clipboard' # Cross-platform clipboard copy
-export PATH="$HOME/bin:$PATH"
-export PATH="$HOME/bin:$PATH"
