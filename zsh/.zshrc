@@ -201,3 +201,4 @@ alias calc='bc -l'                    # Quick calculations
 alias editrc='$EDITOR ~/.zshrc'       # Edit `.zshrc` file
 alias sourcerc='source ~/.zshrc'      # Reload `.zshrc` file
 alias pbcopy='xclip -selection clipboard' # Cross-platform clipboard copy
+alias fabric='docker run -i --rm -v ~/.config/fabric/:/root/.config/fabric/ fabric-instance:latest'
