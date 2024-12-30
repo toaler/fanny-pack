@@ -132,6 +132,28 @@ done
 
 export PATH
 
+fabric-youtube() {
+    # Check if the required argument is provided
+    if [ -z "$1" ]; then
+        echo "Usage: fabric-youtube <YouTube_URL>"
+        return 1
+    fi
+
+    # Ensure the config directory exists
+    CONFIG_DIR="$HOME/.config/fabric/"
+    if [ ! -d "$CONFIG_DIR" ]; then
+        echo "Error: Configuration directory $CONFIG_DIR does not exist."
+        return 1
+    fi
+
+    # Run the Docker container
+    docker run -it --rm \
+        -v "$CONFIG_DIR:/root/.config/fabric/" \
+        fabric-instance:latest \
+        --youtube="$1" --comments -sp analyze_comments
+}
+
+
 # General Navigation and File Management
 alias ll='ls -alF'                    # Detailed file list with types
 alias la='ls -A'                      # List all except . and ..
