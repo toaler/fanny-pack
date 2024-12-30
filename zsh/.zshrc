@@ -227,3 +227,4 @@ alias fabric='docker run -i --rm -v ~/.config/fabric/:/root/.config/fabric/ fabr
 alias fabric_aphorisms='fabric -sp create_aphorisms'
 alias fab='docker run -it --rm -v ~/.config/fabric/:/root/.config/fabric/ fabric-instance:latest'
 alias fabric_mistakes='fabric -sp analyze_mistakes'
+alias fabric_duke='fabric -sp ask_uncle_duke'
