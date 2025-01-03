@@ -132,7 +132,28 @@ done
 
 export PATH
 
-fabric-youtube() {
+fabric-youtube-transcript() {
+    # Check if the required argument is provided
+    if [ -z "$1" ]; then
+        echo "Usage: fabric-youtube <YouTube_URL>"
+        return 1
+    fi
+
+    # Ensure the config directory exists
+    CONFIG_DIR="$HOME/.config/fabric/"
+    if [ ! -d "$CONFIG_DIR" ]; then
+        echo "Error: Configuration directory $CONFIG_DIR does not exist."
+        return 1
+    fi
+
+    # Run the Docker container
+    docker run -it --rm \
+        -v "$CONFIG_DIR:/root/.config/fabric/" \
+        fabric-instance:latest \
+        --youtube="$1" --transcript -sp analyze_comments
+}
+
+fabric-youtube-comments() {
     # Check if the required argument is provided
     if [ -z "$1" ]; then
         echo "Usage: fabric-youtube <YouTube_URL>"
@@ -228,3 +249,4 @@ alias fabric_aphorisms='fabric -sp create_aphorisms'
 alias fab='docker run -it --rm -v ~/.config/fabric/:/root/.config/fabric/ fabric-instance:latest'
 alias fabric_mistakes='fabric -sp analyze_mistakes'
 alias fabric_duke='fabric -sp ask_uncle_duke'
+alias fabric_thinker='fabric -sp capture_thinkers_work'
