@@ -17,6 +17,7 @@ NVIM_PATH=$(which nvim)
 TMUX_SOURCE_DIR="./tmux"
 TMUX_SOURCE_FILE="$TMUX_SOURCE_DIR/tmux.conf"
 TMUX_TARGET_FILE="$HOME/.tmux.conf"
+TMUX_TARGET_DIR="$HOME/.tmux/plugins/tpm"
 
 # Function to create symlinks
 create_symlink() {
@@ -29,6 +30,21 @@ create_symlink() {
     echo "Creating symlink for $source -> $target"
     ln -sf "$source" "$target"
 }
+
+test_truecolor() {
+    awk 'BEGIN{
+        s="/\\/\\/\\/\\/\\"; s=s s s s s s s s;
+        for (colnum = 0; colnum<77; colnum++) {
+            r = 255-(colnum*255/76);
+            g = (colnum*510/76);
+            b = (colnum*255/76);
+            if (g>255) g = 510-g;
+            printf "\033[48;2;%d;%d;%dm\033[38;2;%d;%d;%dm%s\033[0m", r,g,b, r,g,b, substr(s,colnum%8+1,1);
+        }
+        printf "\n";
+    }'
+}
+
 
 # Ensure the .config directory exists
 if [ ! -d "$CONFIG_DIR" ]; then
@@ -105,6 +121,20 @@ else
     echo "Symlink created/updated successfully."
 fi
 
+# Check if the directory already exists
+if [ -d "$TMUX_TARGET_DIR" ]; then
+  echo "TPM is already installed in $TMUX_TARGET_DIR."
+else
+  echo "Cloning TPM repository into $TMUX_TARGET_DIR..."
+  git clone https://github.com/tmux-plugins/tpm "$TMUX_TARGET_DIR"
+  if [ $? -eq 0 ]; then
+    echo "TPM successfully installed."
+  else
+    echo "Failed to clone TPM repository." >&2
+    exit 1
+  fi
+fi
+
 # Check if the source file exists
 if [[ ! -f "$TMUX_SOURCE_FILE" ]]; then
     echo "Error: Source file $TMUX_SOURCE_FILE does not exist."
@@ -124,4 +154,23 @@ else
     echo "Copying $TMUX_SOURCE_FILE to $TMUX_TARGET_FILE..."
     cp "$TMUX_SOURCE_FILE" "$TMUX_TARGET_FILE"
     echo "$TMUX_TARGET_FILE created successfully."
+fi
+
+# Check if tmux-256color is already installed
+if infocmp tmux-256color >/dev/null 2>&1; then
+  echo "tmux-256color is already installed."
+else
+  echo "Installing tmux-256color terminfo..."
+  if [ -f "tmux/tmux-256color.src" ]; then
+    tic -x tmux/tmux-256color.src
+    if [ $? -eq 0 ]; then
+      echo "tmux-256color installed successfully."
+    else
+      echo "Failed to install tmux-256color." >&2
+      exit 1
+    fi
+  else
+    echo "tmux-256color.src file not found in tmux directory." >&2
+    exit 1
+  fi
 fi

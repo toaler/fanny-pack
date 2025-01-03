@@ -118,11 +118,11 @@ export SDKMAN_DIR="$HOME/.sdkman"
 # Define an array of paths to be added to PATH
 paths_to_add=(
   "$HOME/bin"
-  "$HOME/bin"
   "$HOME/.local/bin"
   "/usr/local/bin"
   "/opt/homebrew/opt/postgresql@16/bin"
   "/usr/X11/bin"
+  "/opt/homebrew/opt/ncurses/bin"
 )
 
 # Add each path to PATH if not already present
@@ -174,6 +174,22 @@ fabric-youtube-comments() {
         --youtube="$1" --comments -sp analyze_comments
 }
 
+test_truecolor() {
+    awk 'BEGIN{
+        s="/\\/\\/\\/\\/\\"; s=s s s s s s s s;
+        for (colnum = 0; colnum<77; colnum++) {
+            r = 255-(colnum*255/76);
+            g = (colnum*510/76);
+            b = (colnum*255/76);
+            if (g>255) g = 510-g;
+            printf "\033[48;2;%d;%d;%dm\033[38;2;%d;%d;%dm%s\033[0m", r,g,b, r,g,b, substr(s,colnum%8+1,1);
+        }
+        printf "\n";
+    }'
+}
+
+export TERM=xterm-256color
+export COLORTERM=truecolor
 
 # General Navigation and File Management
 alias ll='ls -alF'                    # Detailed file list with types
