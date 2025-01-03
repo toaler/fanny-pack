@@ -31,6 +31,7 @@ brew install \
     helm \
     highway \
     icu4c@76 \
+    iftop \
     imagemagick \
     imath \
     isl \
@@ -107,6 +108,7 @@ brew install \
     ncurses \
     neovim \
     nettle \
+    nload \
     node \
     numpy \
     openai-whisper \
