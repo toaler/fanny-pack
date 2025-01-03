@@ -1,4 +1,5 @@
 brew install \
+    abseil \
     aom \
     argocd \
     aribb24 \
@@ -6,14 +7,18 @@ brew install \
     brotli \
     ca-certificates \
     cairo \
+    certifi \
     cjson \
     dav1d \
+    eigen \
     ffmpeg \
     flac \
     fontconfig \
     freetype \
     frei0r \
     fribidi \
+    fzf \
+    gcc \
     gettext \
     ghostscript \
     giflib \
@@ -27,6 +32,7 @@ brew install \
     icu4c@76 \
     imagemagick \
     imath \
+    isl \
     jasper \
     jbig2dec \
     jpeg-turbo \
@@ -49,6 +55,7 @@ brew install \
     libidn2 \
     liblqr \
     libmicrohttpd \
+    libmpc \
     libnghttp2 \
     libogg \
     libomp \
@@ -65,26 +72,39 @@ brew install \
     libtool \
     libunibreak \
     libunistring \
+    libuv \
     libvidstab \
     libvmaf \
     libvorbis \
     libvpx \
+    libvterm \
     libx11 \
     libxau \
     libxcb \
     libxdmcp \
     libxext \
     libxrender \
+    libyaml \
     little-cms2 \
+    llvm@16 \
+    lpeg \
+    luajit \
+    luv \
     lz4 \
     lzo \
     m4 \
     maven \
     mbedtls \
     mpdecimal \
+    mpfr \
     mpg123 \
+    msgpack \
     ncurses \
+    neovim \
     nettle \
+    numpy \
+    openai-whisper \
+    openblas \
     opencore-amr \
     openexr \
     openjdk \
@@ -98,13 +118,18 @@ brew install \
     pcre2 \
     pixman \
     postgresql@16 \
+    protobuf \
+    pybind11 \
     python-packaging \
+    python@3.12 \
     python@3.13 \
+    pytorch \
     rav1e \
     readline \
     rubberband \
     sdl2 \
     shared-mime-info \
+    sleef \
     snappy \
     speex \
     sqlite \
@@ -115,7 +140,10 @@ brew install \
     tesseract \
     theora \
     tmux \
+    tree \
+    tree-sitter \
     unbound \
+    unibilium \
     utf8proc \
     webp \
     wget \
@@ -139,6 +167,7 @@ brew install --cask \
     keka \
     maccy \
     menubar-stats \
+    obsidian \
     one-switch \
     rectangle \
     soundsource \
