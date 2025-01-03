@@ -5,6 +5,7 @@ brew install \
     aribb24 \
     bazel \
     brotli \
+    c-ares \
     ca-certificates \
     cairo \
     certifi \
@@ -102,6 +103,7 @@ brew install \
     ncurses \
     neovim \
     nettle \
+    node \
     numpy \
     openai-whisper \
     openblas \
