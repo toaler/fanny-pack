@@ -52,6 +52,7 @@ brew install \
     libdeflate \
     libevent \
     libheif \
+    libice \
     libidn \
     libidn2 \
     liblqr \
@@ -64,6 +65,7 @@ brew install \
     libraw \
     librist \
     libsamplerate \
+    libsm \
     libsndfile \
     libsodium \
     libsoxr \
@@ -84,7 +86,9 @@ brew install \
     libxcb \
     libxdmcp \
     libxext \
+    libxmu \
     libxrender \
+    libxt \
     libyaml \
     little-cms2 \
     llvm@16 \
@@ -151,6 +155,7 @@ brew install \
     wget \
     x264 \
     x265 \
+    xclip \
     xorgproto \
     xvid \
     xz \
