@@ -13,6 +13,10 @@ BIN_DIR="$HOME/bin"
 SYMLINK_PATH="$BIN_DIR/vim"
 # Get the path to the nvim binary
 NVIM_PATH=$(which nvim)
+# Define TMUX-related variables
+TMUX_SOURCE_DIR="./tmux"
+TMUX_SOURCE_FILE="$TMUX_SOURCE_DIR/tmux.conf"
+TMUX_TARGET_FILE="$HOME/.tmux.conf"
 
 # Function to create symlinks
 create_symlink() {
@@ -93,10 +97,31 @@ else
 fi
 
 # Check if the symlink already exists and points to nvim
-if [ -L "$SYMLINK_PATH" ] && [ "$(readlink "$SYMLINK_PATH")" == "$NVIM_PATH" ]; then
+if [[ -L "$SYMLINK_PATH" && "$(readlink "$SYMLINK_PATH")" == "$NVIM_PATH" ]]; then
     echo "Symlink $SYMLINK_PATH already exists and points to nvim. No changes made."
 else
     echo "Creating or updating symlink at $SYMLINK_PATH to point to $NVIM_PATH..."
     ln -sf "$NVIM_PATH" "$SYMLINK_PATH"
     echo "Symlink created/updated successfully."
+fi
+
+# Check if the source file exists
+if [[ ! -f "$TMUX_SOURCE_FILE" ]]; then
+    echo "Error: Source file $TMUX_SOURCE_FILE does not exist."
+    exit 1
+fi
+
+# Compare and copy the file if necessary
+if [[ -f "$TMUX_TARGET_FILE" ]]; then
+    if cmp -s "$TMUX_SOURCE_FILE" "$TMUX_TARGET_FILE"; then
+        echo "The file $TMUX_TARGET_FILE is already up-to-date. No changes made."
+    else
+        echo "Updating $TMUX_TARGET_FILE with the latest version from $TMUX_SOURCE_FILE..."
+        cp "$TMUX_SOURCE_FILE" "$TMUX_TARGET_FILE"
+        echo "$TMUX_TARGET_FILE updated successfully."
+    fi
+else
+    echo "Copying $TMUX_SOURCE_FILE to $TMUX_TARGET_FILE..."
+    cp "$TMUX_SOURCE_FILE" "$TMUX_TARGET_FILE"
+    echo "$TMUX_TARGET_FILE created successfully."
 fi
