@@ -174,3 +174,29 @@ else
     exit 1
   fi
 fi
+
+# Setup fzf
+#!/bin/zsh
+
+# Define the target file and URL
+TARGET_FILE=~/bin/fzf-git.sh
+URL=https://raw.githubusercontent.com/junegunn/fzf-git.sh/master/fzf-git.sh
+
+# Download the file using curl with error handling
+if curl -fLo "$TARGET_FILE" --create-dirs "$URL"; then
+    echo "Downloaded fzf-git.sh successfully."
+else
+    echo "Failed to download fzf-git.sh." >&2
+    exit 1
+fi
+
+# Check if the file is readable and contains no errors
+if [ -r "$TARGET_FILE" ] && grep -q 'fzf' "$TARGET_FILE"; then
+    echo "Sourcing fzf-git.sh..."
+    . "$TARGET_FILE"
+else
+    echo "Error: fzf-git.sh is not valid or readable." >&2
+    exit 1
+fi
+
+. ~/.zshrc
