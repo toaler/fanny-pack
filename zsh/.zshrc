@@ -191,6 +191,9 @@ test_truecolor() {
 export TERM=xterm-256color
 export COLORTERM=truecolor
 
+# Overrides
+alias vi='vim'
+
 # General Navigation and File Management
 alias ll='ls -alF'                    # Detailed file list with types
 alias la='ls -A'                      # List all except . and ..
@@ -266,3 +269,4 @@ alias fab='docker run -it --rm -v ~/.config/fabric/:/root/.config/fabric/ fabric
 alias fabric_mistakes='fabric -sp analyze_mistakes'
 alias fabric_duke='fabric -sp ask_uncle_duke'
 alias fabric_thinker='fabric -sp capture_thinkers_work'
+alias fs='eza --color=always --long --git --icons=always --no-time --no-user --no-permissions'
