@@ -313,4 +313,7 @@ _fzf_comprun() {
 }
 
 # thefuck setup
-eval $(thefuck --alias)
+eval "$(thefuck --alias)"
+
+# zoxide
+eval "$(zoxide init zsh)"
