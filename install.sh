@@ -200,7 +200,6 @@ else
 fi
 
 # Setup fzf
-#!/bin/zsh
 
 # Define the target file and URL
 TARGET_FILE=~/bin/fzf-git.sh
