@@ -192,7 +192,8 @@ export TERM=xterm-256color
 export COLORTERM=truecolor
 
 # Overrides
-alias vi='vim'
+alias vi='nvim'
+alias vim='nvim'
 
 # General Navigation and File Management
 alias ll='ls -alF'                    # Detailed file list with types
