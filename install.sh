@@ -45,6 +45,30 @@ test_truecolor() {
     }'
 }
 
+copy_rc_files_to_home() {
+  # Directory containing the files to process
+  rc_dir="./rc"
+
+  # Check if the directory exists
+  if [[ ! -d "$rc_dir" ]]; then
+    echo "Error: Directory '$rc_dir' does not exist."
+    return 1
+  fi
+
+  # Loop through all files in the rc directory
+  for file in "$rc_dir"/*; do
+    # Check if it's a file (not a directory or symlink)
+    if [[ -f "$file" ]]; then
+      # Get the base name of the file (no directory path)
+      base_name=$(basename "$file")
+
+      # Copy the file to the home directory, prefixing with a dot and preserving the timestamp
+      cp -p "$file" "$HOME/.$base_name"
+    fi
+  done
+
+  echo "All files from '$rc_dir' have been copied to '$HOME' with a dot prefix and timestamps preserved."
+}
 
 # Ensure the .config directory exists
 if [ ! -d "$CONFIG_DIR" ]; then
@@ -198,5 +222,8 @@ else
     echo "Error: fzf-git.sh is not valid or readable." >&2
     exit 1
 fi
+
+
+copy_rc_files_to_home
 
 . ~/.zshrc
