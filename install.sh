@@ -78,12 +78,6 @@ else
     echo "$CONFIG_DIR directory already exists."
 fi
 
-# Link Zsh configuration files
-create_symlink "$REPO_PATH/zsh/.zshrc" "$ZSHRC"
-if [ -f "$REPO_PATH/zsh/aliases" ]; then
-    echo "source $REPO_PATH/zsh/aliases" >> "$ZSHRC"
-fi
-
 # Ensure scripts are executable
 if [ -d "$REPO_PATH/scripts" ]; then
     chmod +x "$REPO_PATH/scripts"/*.sh
@@ -225,4 +219,4 @@ fi
 
 copy_rc_files_to_home
 
-. ~/.zshrc
+source ~/.zshrc
