@@ -3,6 +3,7 @@ brew install \
     aom \
     argocd \
     aribb24 \
+    bat \
     bazel \
     brotli \
     c-ares \
@@ -12,6 +13,8 @@ brew install \
     cjson \
     dav1d \
     eigen \
+    eza \
+    fd \
     ffmpeg \
     flac \
     fontconfig \
@@ -23,6 +26,7 @@ brew install \
     gettext \
     ghostscript \
     giflib \
+    git-delta \
     glib \
     gmp \
     gnutls \
@@ -30,6 +34,7 @@ brew install \
     harfbuzz \
     helm \
     highway \
+    htop \
     icu4c@76 \
     iftop \
     imagemagick \
@@ -52,6 +57,7 @@ brew install \
     libde265 \
     libdeflate \
     libevent \
+    libgit2@1.8 \
     libheif \
     libice \
     libidn \
@@ -71,6 +77,7 @@ brew install \
     libsodium \
     libsoxr \
     libssh \
+    libssh2 \
     libtasn1 \
     libtiff \
     libtool \
@@ -111,6 +118,7 @@ brew install \
     nload \
     node \
     numpy \
+    oniguruma \
     openai-whisper \
     openblas \
     opencore-amr \
@@ -146,7 +154,9 @@ brew install \
     telepresence-oss \
     telnet \
     tesseract \
+    thefuck \
     theora \
+    tlrc \
     tmux \
     tree \
     tree-sitter \
@@ -163,6 +173,7 @@ brew install \
     xz \
     zeromq \
     zimg \
+    zoxide \
     zsh \
     zstd \
 
