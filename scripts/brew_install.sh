@@ -36,6 +36,7 @@ brew install \
     highway \
     htop \
     icu4c@76 \
+    icu4c@77 \
     iftop \
     imagemagick \
     imath \
@@ -44,6 +45,7 @@ brew install \
     jbig2dec \
     jpeg-turbo \
     jpeg-xl \
+    jupyterlab \
     k9s \
     kind \
     krb5 \
@@ -57,11 +59,12 @@ brew install \
     libde265 \
     libdeflate \
     libevent \
-    libgit2@1.8 \
+    libgit2 \
     libheif \
     libice \
     libidn \
     libidn2 \
+    libimagequant \
     liblqr \
     libmicrohttpd \
     libmpc \
@@ -69,6 +72,7 @@ brew install \
     libogg \
     libomp \
     libpng \
+    libraqm \
     libraw \
     librist \
     libsamplerate \
@@ -129,17 +133,21 @@ brew install \
     openssl@3 \
     opus \
     p11-kit \
+    pandoc \
     pango \
     pcre \
     pcre2 \
+    pillow \
     pixman \
     postgresql@16 \
     protobuf \
     pybind11 \
+    python-matplotlib \
     python-packaging \
     python@3.12 \
     python@3.13 \
     pytorch \
+    qhull \
     rav1e \
     readline \
     rubberband \
@@ -181,11 +189,16 @@ brew install --cask \
     alt-tab \
     bartender \
     breaktimer \
+    cleanshot \
+    clop \
+    discord \
+    font-meslo-lg-nerd-font \
     hiddenbar \
     itsycal \
     kap \
     keka \
     maccy \
+    meetingbar \
     menubar-stats \
     obsidian \
     one-switch \
@@ -194,6 +207,7 @@ brew install --cask \
     stats \
     sublime-text \
     vlc \
+    wezterm \
     wifi-explorer \
     xquartz \
     zoom \
