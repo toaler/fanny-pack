@@ -122,6 +122,7 @@ brew install \
     nload \
     node \
     numpy \
+    ollama \
     oniguruma \
     openai-whisper \
     openblas \
