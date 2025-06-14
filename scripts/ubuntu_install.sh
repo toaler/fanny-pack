@@ -317,6 +317,26 @@ if ! command -v cursor &> /dev/null; then
 /usr/local/bin/cursor --no-sandbox "$@"' > ~/.local/bin/cursor
     chmod +x ~/.local/bin/cursor
     
+    # Download and install Cursor icon
+    mkdir -p ~/.local/share/icons
+    wget -O ~/.local/share/icons/cursor.png https://raw.githubusercontent.com/getcursor/cursor/main/packages/renderer/assets/icon.png
+    
+    # Create desktop entry with icon
+    mkdir -p ~/.local/share/applications
+    cat > ~/.local/share/applications/cursor.desktop << EOL
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Cursor
+Comment=AI-first code editor
+Exec=/home/$USER/.local/bin/cursor %F
+Icon=/home/$USER/.local/share/icons/cursor.png
+Terminal=false
+Categories=Development;TextEditor;IDE;
+MimeType=text/plain;inode/directory;
+StartupWMClass=Cursor
+EOL
+    
     # Ensure ~/.local/bin is in PATH
     if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
         echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
