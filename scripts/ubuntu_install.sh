@@ -357,10 +357,10 @@ Categories=Development;TextEditor;IDE;
 StartupWMClass=Cursor
 EOL
 
-# Download and set up Cursor icon
-echo "Setting up Cursor icon..."
-mkdir -p ~/.local/share/icons/hicolor/256x256/apps
-curl -L https://raw.githubusercontent.com/getcursor/cursor/main/packages/renderer/assets/icon.png -o ~/.local/share/icons/hicolor/256x256/apps/cursor.png
+# Convert cursor.webp to cursor.png and place in ~/.local/share/icons
+echo "Converting cursor icon..."
+mkdir -p ~/.local/share/icons
+convert ~/Downloads/cursor.webp ~/.local/share/icons/cursor.png
 
 # Update icon cache
 gtk-update-icon-cache ~/.local/share/icons/hicolor
