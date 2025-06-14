@@ -317,9 +317,11 @@ if ! command -v cursor &> /dev/null; then
 /usr/local/bin/cursor --no-sandbox "$@"' > ~/.local/bin/cursor
     chmod +x ~/.local/bin/cursor
     
-    # Download and install Cursor icon
+    # Extract and install Cursor icon from the .deb package
     mkdir -p ~/.local/share/icons
-    wget -O ~/.local/share/icons/cursor.png https://raw.githubusercontent.com/getcursor/cursor/main/packages/renderer/assets/icon.png
+    dpkg-deb -x ~/.local/bin/cursor.deb /tmp/cursor-deb
+    cp /tmp/cursor-deb/usr/share/icons/hicolor/512x512/apps/cursor.png ~/.local/share/icons/
+    rm -rf /tmp/cursor-deb
     
     # Create desktop entry with icon
     mkdir -p ~/.local/share/applications
