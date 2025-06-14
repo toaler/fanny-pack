@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# WARNING: DO NOT RECURSIVELY ADD COMMANDS TO THIS SCRIPT
+# When adding new packages or tools:
+# 1. Check if the package is already in the apt install list
+# 2. Check if the package is already installed via another method
+# 3. Add new packages only if they don't already exist in the script
+# 4. Do not duplicate installation methods for the same package
+
 # Exit on error
 set -e
 
@@ -389,6 +396,48 @@ fi
 # Install ImageMagick
 echo "Installing ImageMagick..."
 sudo apt install -y imagemagick
+
+# Install performance tools
+echo "Installing performance tools..."
+sudo apt install -y \
+    linux-tools-common \
+    linux-tools-generic \
+    linux-tools-$(uname -r) \
+    bpfcc-tools \
+    bpftrace \
+    sysdig \
+    strace \
+    ltrace \
+    perf-tools-unstable \
+    systemtap \
+    # CPU monitoring
+    sysstat \
+    mpstat \
+    iotop \
+    # Memory monitoring
+    memstat \
+    numastat \
+    # Network monitoring
+    iperf3 \
+    nethogs \
+    iftop \
+    nload \
+    # Disk monitoring
+    iotop \
+    iostat \
+    smartmontools \
+    hdparm \
+    # System monitoring
+    atop \
+    dstat \
+    glances \
+    # Process monitoring
+    pidstat \
+    procps
+
+# Install flamegraphs via pip
+echo "Installing flamegraphs..."
+pip3 install flamegraphs
 
 echo "Installation completed successfully!"
 echo "To use WezTerm, either:"
