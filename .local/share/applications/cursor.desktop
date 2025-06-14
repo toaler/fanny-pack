@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Cursor
+Comment=AI-first code editor
+Exec=/usr/local/bin/cursor --no-sandbox %F
+Icon=cursor
+Terminal=false
+Categories=Development;TextEditor;IDE;
+StartupWMClass=Cursor
+Keywords=code;editor;IDE;AI;programming;development;
+GenericName=Code Editor
+MimeType=text/plain;inode/directory;application/x-code-workspace;
