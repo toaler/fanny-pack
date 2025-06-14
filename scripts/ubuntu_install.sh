@@ -307,21 +307,14 @@ if ! command -v cursor &> /dev/null; then
     # Create ~/.local/bin if it doesn't exist
     mkdir -p ~/.local/bin
     
-    # Download and install Cursor
-    wget -O ~/.local/bin/cursor.deb https://download.cursor.sh/linux_deb/cursor_0.20.0_amd64.deb
-    sudo dpkg -i ~/.local/bin/cursor.deb || sudo apt-get install -f -y
-    rm ~/.local/bin/cursor.deb
-    
     # Create a wrapper script to launch Cursor with --no-sandbox
     echo '#!/bin/bash
 /usr/local/bin/cursor --no-sandbox "$@"' > ~/.local/bin/cursor
     chmod +x ~/.local/bin/cursor
     
-    # Extract and install Cursor icon from the .deb package
+    # Download and install Cursor icon
     mkdir -p ~/.local/share/icons
-    dpkg-deb -x ~/.local/bin/cursor.deb /tmp/cursor-deb
-    cp /tmp/cursor-deb/usr/share/icons/hicolor/512x512/apps/cursor.png ~/.local/share/icons/
-    rm -rf /tmp/cursor-deb
+    wget -O ~/.local/share/icons/cursor.png https://cursor.sh/cursor.png
     
     # Create desktop entry with icon
     mkdir -p ~/.local/share/applications
