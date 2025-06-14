@@ -314,7 +314,7 @@ if ! command -v cursor &> /dev/null; then
     
     # Create a wrapper script to launch Cursor with --no-sandbox
     echo '#!/bin/bash
-/usr/bin/cursor --no-sandbox "$@"' > ~/.local/bin/cursor
+/usr/local/bin/cursor --no-sandbox "$@"' > ~/.local/bin/cursor
     chmod +x ~/.local/bin/cursor
     
     # Ensure ~/.local/bin is in PATH
