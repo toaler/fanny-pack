@@ -312,6 +312,11 @@ if ! command -v cursor &> /dev/null; then
     sudo dpkg -i ~/.local/bin/cursor.deb || sudo apt-get install -f -y
     rm ~/.local/bin/cursor.deb
     
+    # Create a wrapper script to launch Cursor with --no-sandbox
+    echo '#!/bin/bash
+/usr/bin/cursor --no-sandbox "$@"' > ~/.local/bin/cursor
+    chmod +x ~/.local/bin/cursor
+    
     # Ensure ~/.local/bin is in PATH
     if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
         echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
