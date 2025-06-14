@@ -439,6 +439,11 @@ sudo apt install -y \
 echo "Installing flamegraphs..."
 pip3 install flamegraphs
 
+# Download IBKR Trader Workstation installer
+echo "Downloading IBKR Trader Workstation installer..."
+mkdir -p ~/Downloads
+wget -O ~/Downloads/tws-latest-linux-x64.sh https://download2.interactivebrokers.com/installers/tws/latest/tws-latest-linux-x64.sh
+
 echo "Installation completed successfully!"
 echo "To use WezTerm, either:"
 echo "1. Run: flatpak run org.wezfurlong.wezterm"
