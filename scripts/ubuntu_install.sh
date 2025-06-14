@@ -273,16 +273,37 @@ sudo apt install -y \
     zsh \
     zstd
 
-# Install snap packages one by one (with --classic where needed)
+# Install snap packages
 echo "Installing snap packages..."
-for snap in sublime-text vlc zoom-client helm kubectl; do
-    if ! snap_installed "$snap"; then
-        echo "Installing $snap..."
-        sudo snap install --classic "$snap"
-    else
-        echo "$snap is already installed"
-    fi
-done
+if ! snap_installed sublime-text; then
+    echo "Installing Sublime Text..."
+    sudo snap install sublime-text --classic
+fi
+
+if ! snap_installed vlc; then
+    echo "Installing VLC..."
+    sudo snap install vlc
+fi
+
+if ! snap_installed zoom-client; then
+    echo "Installing Zoom..."
+    sudo snap install zoom-client
+fi
+
+if ! snap_installed helm; then
+    echo "Installing Helm..."
+    sudo snap install helm --classic
+fi
+
+if ! snap_installed kubectl; then
+    echo "Installing kubectl..."
+    sudo snap install kubectl --classic
+fi
+
+if ! snap_installed spotify; then
+    echo "Installing Spotify..."
+    sudo snap install spotify
+fi
 
 # Install jupyterlab using pipx
 if ! command -v jupyter &> /dev/null; then
