@@ -301,14 +301,24 @@ if [ ! -f "$FONT_FILE" ]; then
     fc-cache -f -v
 fi
 
-# Install Cursor AI
-echo "Installing Cursor AI..."
+# Install Cursor
+echo "Installing Cursor..."
 if ! command -v cursor &> /dev/null; then
-    # Download and run the official installation script
-    curl -L https://download.cursor.sh/linux/install.sh -o install_cursor.sh
-    chmod +x install_cursor.sh
-    ./install_cursor.sh
-    rm install_cursor.sh
+    # Create ~/.local/bin if it doesn't exist
+    mkdir -p ~/.local/bin
+    
+    # Download and install Cursor
+    wget -O ~/.local/bin/cursor.deb https://download.cursor.sh/linux_deb/cursor_0.20.0_amd64.deb
+    sudo dpkg -i ~/.local/bin/cursor.deb || sudo apt-get install -f -y
+    rm ~/.local/bin/cursor.deb
+    
+    # Ensure ~/.local/bin is in PATH
+    if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
+        echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+        export PATH="$HOME/.local/bin:$PATH"
+    fi
+else
+    echo "Cursor is already installed"
 fi
 
 # Create desktop shortcut for Cursor AI
