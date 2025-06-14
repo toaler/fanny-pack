@@ -338,6 +338,24 @@ gtk-update-icon-cache ~/.local/share/icons/hicolor
 # Update desktop database
 update-desktop-database ~/.local/share/applications
 
+# Install NordVPN CLI and GUI
+echo "Installing NordVPN..."
+if ! command -v nordvpn &> /dev/null; then
+    # Install NordVPN CLI
+    sh <(wget -qO - https://downloads.nordcdn.com/apps/linux/install.sh)
+    
+    # Install NordVPN GUI
+    sudo apt install -y nordvpn-gui
+    
+    # Ensure nordvpn group exists and add user to it
+    sudo groupadd nordvpn 2>/dev/null || true
+    sudo usermod -aG nordvpn $USER
+    
+    echo "NordVPN installed successfully! Please log out and log back in for group changes to take effect."
+else
+    echo "NordVPN is already installed"
+fi
+
 echo "Installation completed successfully!"
 echo "To use WezTerm, either:"
 echo "1. Run: flatpak run org.wezfurlong.wezterm"
