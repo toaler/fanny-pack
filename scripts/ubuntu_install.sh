@@ -386,6 +386,10 @@ else
     echo "NordVPN is already installed"
 fi
 
+# Install ImageMagick
+echo "Installing ImageMagick..."
+sudo apt install -y imagemagick
+
 echo "Installation completed successfully!"
 echo "To use WezTerm, either:"
 echo "1. Run: flatpak run org.wezfurlong.wezterm"
