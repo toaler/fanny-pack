@@ -358,22 +358,16 @@ Type=Application
 Name=Cursor
 Comment=AI-first code editor
 Exec=cursor %F
-Icon=cursor
+Icon=/home/$USER/.local/share/icons/cursor.png
 Terminal=false
 Categories=Development;TextEditor;IDE;
 StartupWMClass=Cursor
 EOL
 
-# Convert cursor.webp to cursor.png and place in ~/.local/share/icons
-echo "Converting cursor icon..."
-mkdir -p ~/.local/share/icons
-convert ~/Downloads/cursor.webp ~/.local/share/icons/cursor.png
-
-# Update icon cache
-gtk-update-icon-cache ~/.local/share/icons/hicolor
-
 # Update desktop database
 update-desktop-database ~/.local/share/applications
+
+# Convert cursor icon...
 
 # Install NordVPN CLI and GUI
 echo "Installing NordVPN..."
@@ -443,6 +437,32 @@ pip3 install flamegraphs
 echo "Downloading IBKR Trader Workstation installer..."
 mkdir -p ~/Downloads
 wget -O ~/Downloads/tws-latest-linux-x64.sh https://download2.interactivebrokers.com/installers/tws/latest/tws-latest-linux-x64.sh
+
+# Install IBKR Trader Workstation
+echo "Installing IBKR Trader Workstation..."
+chmod +x ~/Downloads/tws-latest-linux-x64.sh
+mkdir -p ~/.local/opt/ibkr-tws
+cd ~/.local/opt/ibkr-tws
+bash ~/Downloads/tws-latest-linux-x64.sh
+
+# Create desktop shortcut for IBKR Trader Workstation
+echo "Creating desktop shortcut for IBKR Trader Workstation..."
+mkdir -p ~/.local/share/applications
+cat > ~/.local/share/applications/ibkr-tws.desktop << 'EOL'
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=IBKR Trader Workstation
+Comment=Interactive Brokers Trading Platform
+Exec=/home/$USER/.local/opt/ibkr-tws/tws/tws
+Icon=/home/$USER/.local/opt/ibkr-tws/tws/tws.png
+Terminal=false
+Categories=Finance;Investment;
+StartupWMClass=IBKR Trader Workstation
+EOL
+
+# Update desktop database
+update-desktop-database ~/.local/share/applications
 
 echo "Installation completed successfully!"
 echo "To use WezTerm, either:"
