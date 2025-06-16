@@ -44,11 +44,13 @@ if [ -f "/etc/apt/sources.list.d/codeium.list" ]; then
     sudo rm /etc/apt/sources.list.d/codeium.list
 fi
 
-# Enable universe repository for extra packages if not already enabled
-if ! grep -q "universe" /etc/apt/sources.list; then
-    echo "Enabling universe repository..."
-    sudo add-apt-repository universe -y
-fi
+# Enable universe repository
+echo "Enabling universe repository..."
+sudo add-apt-repository universe
+
+# Disable firewall
+echo "Disabling firewall..."
+sudo ufw disable
 
 # Update package lists
 echo "Updating package lists..."
@@ -273,6 +275,18 @@ sudo apt install -y \
     zsh \
     zstd
 
+# Install Google Chrome
+echo "Installing Google Chrome..."
+if ! command -v google-chrome &> /dev/null; then
+    echo "Adding Google Chrome repository..."
+    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+    echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+    sudo apt update
+    sudo apt install -y google-chrome-stable
+else
+    echo "Google Chrome is already installed"
+fi
+
 # Install snap packages
 echo "Installing snap packages..."
 if ! snap_installed sublime-text; then
@@ -484,6 +498,24 @@ EOL
 
 # Update desktop database
 update-desktop-database ~/.local/share/applications
+
+# Disable IPv6 system-wide
+echo "Disabling IPv6 system-wide..."
+sudo tee /etc/sysctl.d/99-disable-ipv6.conf > /dev/null <<EOL
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+EOL
+sudo sysctl --system
+
+# --- Network DNS Configuration ---
+# Set Google DNS for 'toal-mesh' Wi-Fi connection to avoid DNS/routing issues
+# If you experience site-specific timeouts (e.g., Spotify), check your DNS settings and try a VPN
+# To troubleshoot: try 'curl -v https://accounts.spotify.com/login' and verify DNS with 'resolvectl status'
+echo "Configuring Google DNS for 'toal-mesh' Wi-Fi connection..."
+sudo nmcli connection modify "toal-mesh" ipv4.dns "8.8.8.8 8.8.4.4"
+sudo nmcli connection modify "toal-mesh" ipv4.ignore-auto-dns yes
+sudo systemctl restart NetworkManager
 
 echo "Installation completed successfully!"
 echo "To use WezTerm, either:"
