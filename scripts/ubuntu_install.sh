@@ -517,6 +517,50 @@ sudo nmcli connection modify "toal-mesh" ipv4.dns "8.8.8.8 8.8.4.4"
 sudo nmcli connection modify "toal-mesh" ipv4.ignore-auto-dns yes
 sudo systemctl restart NetworkManager
 
+# --- Linux Performance Optimizations ---
+echo "Applying Linux performance optimizations..."
+
+# Kernel Tuning
+cat << EOL | sudo tee -a /etc/sysctl.conf
+# Kernel Tuning
+vm.swappiness=10
+net.core.somaxconn=65535
+fs.file-max=2097152
+EOL
+sudo sysctl --system
+
+# I/O Scheduler for SSDs
+echo "none" | sudo tee /sys/block/sda/queue/scheduler
+
+# CPU Governor
+sudo apt-get install -y cpufrequtils
+echo 'GOVERNOR="performance"' | sudo tee /etc/default/cpufrequtils
+sudo systemctl restart cpufrequtils
+
+# Swappiness
+echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.conf
+sudo sysctl --system
+
+# Filesystem Optimizations (for ext4)
+sudo sed -i 's/defaults/defaults,noatime,discard/g' /etc/fstab
+sudo mount -o remount /
+
+# Network Tuning
+cat << EOL | sudo tee -a /etc/sysctl.conf
+# Network Tuning
+net.ipv4.tcp_keepalive_time=60
+net.ipv4.tcp_fin_timeout=30
+EOL
+sudo sysctl --system
+
+# Graphics Drivers (NVIDIA example)
+sudo apt-get install -y nvidia-driver-535
+
+# Power Management
+sudo apt-get install -y tlp tlp-rdw
+sudo systemctl enable tlp
+sudo systemctl start tlp
+
 echo "Installation completed successfully!"
 echo "To use WezTerm, either:"
 echo "1. Run: flatpak run org.wezfurlong.wezterm"
