@@ -561,6 +561,10 @@ sudo apt-get install -y tlp tlp-rdw
 sudo systemctl enable tlp
 sudo systemctl start tlp
 
+# --- Install Xournal++ ---
+echo "Installing Xournal++..."
+sudo apt-get install -y xournalpp
+
 echo "Installation completed successfully!"
 echo "To use WezTerm, either:"
 echo "1. Run: flatpak run org.wezfurlong.wezterm"
