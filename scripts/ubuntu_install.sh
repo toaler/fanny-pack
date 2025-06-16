@@ -547,4 +547,36 @@ else
     # Apply OS changes
     echo "Applying OS changes..."
     # (Your OS change commands here)
-fi 
+fi
+
+# --- Install packages ---
+echo "Installing packages..."
+sudo apt-get install -y \
+    build-essential \
+    curl \
+    wget \
+    git \
+    python3-pip \
+    python3-venv \
+    nodejs \
+    npm \
+    vim \
+    htop \
+    tmux \
+    ripgrep \
+    fd-find \
+    bat \
+    eza \
+    zsh \
+    fonts-powerline \
+    acpi \
+    libnotify-bin
+
+# --- Install Obsidian ---
+echo "Installing Obsidian..."
+wget -O obsidian.deb https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.11/obsidian_1.5.11_amd64.deb
+sudo dpkg -i obsidian.deb
+sudo apt-get install -f -y  # Install any missing dependencies
+rm obsidian.deb
+
+# --- Install Google Chrome --- 
