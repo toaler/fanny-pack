@@ -44,9 +44,9 @@ if [ -f "/etc/apt/sources.list.d/codeium.list" ]; then
     sudo rm /etc/apt/sources.list.d/codeium.list
 fi
 
-# Enable universe repository
+# --- Enable universe repository ---
 echo "Enabling universe repository..."
-sudo add-apt-repository universe
+echo "Adding component(s) 'universe' to all repositories." | sudo add-apt-repository universe -y
 
 # Disable firewall
 echo "Disabling firewall..."
@@ -260,6 +260,7 @@ sudo apt install -y \
     speex \
     sqlite3 \
     srt-tools \
+    sysstat \
     telnet \
     tesseract-ocr \
     thefuck \
@@ -273,7 +274,8 @@ sudo apt install -y \
     libzmq3-dev \
     zoxide \
     zsh \
-    zstd
+    zstd \
+    xournalpp
 
 # Install Google Chrome
 echo "Installing Google Chrome..."
@@ -428,7 +430,7 @@ sudo apt install -y imagemagick
 
 # Install performance tools
 echo "Installing performance tools..."
-sudo apt install -y \
+sudo apt-get install -y \
     linux-tools-common \
     linux-tools-generic \
     linux-tools-$(uname -r) \
@@ -438,66 +440,7 @@ sudo apt install -y \
     strace \
     ltrace \
     perf-tools-unstable \
-    systemtap \
-    # CPU monitoring
-    sysstat \
-    mpstat \
-    iotop \
-    # Memory monitoring
-    memstat \
-    numastat \
-    # Network monitoring
-    iperf3 \
-    nethogs \
-    iftop \
-    nload \
-    # Disk monitoring
-    iotop \
-    iostat \
-    smartmontools \
-    hdparm \
-    # System monitoring
-    atop \
-    dstat \
-    glances \
-    # Process monitoring
-    pidstat \
-    procps
-
-# Install flamegraphs via pip
-echo "Installing flamegraphs..."
-pip3 install flamegraphs
-
-# Download IBKR Trader Workstation installer
-echo "Downloading IBKR Trader Workstation installer..."
-mkdir -p ~/Downloads
-wget -O ~/Downloads/tws-latest-linux-x64.sh https://download2.interactivebrokers.com/installers/tws/latest/tws-latest-linux-x64.sh
-
-# Install IBKR Trader Workstation
-echo "Installing IBKR Trader Workstation..."
-chmod +x ~/Downloads/tws-latest-linux-x64.sh
-mkdir -p ~/.local/opt/ibkr-tws
-cd ~/.local/opt/ibkr-tws
-bash ~/Downloads/tws-latest-linux-x64.sh
-
-# Create desktop shortcut for IBKR Trader Workstation
-echo "Creating desktop shortcut for IBKR Trader Workstation..."
-mkdir -p ~/.local/share/applications
-cat > ~/.local/share/applications/ibkr-tws.desktop << 'EOL'
-[Desktop Entry]
-Version=1.0
-Type=Application
-Name=IBKR Trader Workstation
-Comment=Interactive Brokers Trading Platform
-Exec=/home/$USER/.local/opt/ibkr-tws/tws/tws
-Icon=/home/$USER/.local/opt/ibkr-tws/tws/tws.png
-Terminal=false
-Categories=Finance;Investment;
-StartupWMClass=IBKR Trader Workstation
-EOL
-
-# Update desktop database
-update-desktop-database ~/.local/share/applications
+    systemtap
 
 # Disable IPv6 system-wide
 echo "Disabling IPv6 system-wide..."
@@ -530,7 +473,12 @@ EOL
 sudo sysctl --system
 
 # I/O Scheduler for SSDs
-echo "none" | sudo tee /sys/block/sda/queue/scheduler
+echo "Setting I/O scheduler to none for NVMe drives..."
+for drive in /sys/block/nvme*; do
+    if [ -f "$drive/queue/scheduler" ]; then
+        echo "none" | sudo tee "$drive/queue/scheduler"
+    fi
+done
 
 # CPU Governor
 sudo apt-get install -y cpufrequtils
@@ -590,4 +538,13 @@ echo "2. Or use the 'wezterm' alias (requires restarting your terminal or runnin
 # - soundsource (use PulseAudio Volume Control)
 # - stats (use GNOME System Monitor)
 # - wifi-explorer (use GNOME Network Manager)
-# - xquartz (not needed on Linux) 
+# - xquartz (not needed on Linux)
+
+# --- Check if OS changes have already been made ---
+if [ -f /etc/sysctl.d/99-sysctl.conf ]; then
+    echo "OS changes have already been applied. Skipping..."
+else
+    # Apply OS changes
+    echo "Applying OS changes..."
+    # (Your OS change commands here)
+fi 
