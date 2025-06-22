@@ -62,6 +62,31 @@ require("lazy").setup({
     end
   },
   
+  -- Simple LSP setup
+  {
+    'neovim/nvim-lspconfig',
+    version = 'v0.1.7',  -- Use older version compatible with Neovim 0.9.5
+    config = function()
+      -- Basic LSP setup for Lua
+      require('lspconfig').lua_ls.setup({
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { 'vim' }
+            }
+          }
+        }
+      })
+      
+      -- LSP key mappings
+      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {})
+      vim.keymap.set('n', 'gr', vim.lsp.buf.references, {})
+      vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
+      vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, {})
+      vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, {})
+    end
+  },
+  
   -- File explorer
   {
     'nvim-tree/nvim-tree.lua',
