@@ -130,6 +130,25 @@ else
     echo "Repository already cloned at $NVIM_DIR. Skipping clone."
 fi
 
+# Setup custom Neovim configuration with lazy.vim, catppuccin, telescope, and treesitter
+echo "Setting up custom Neovim configuration..."
+
+# Create the nvim config directory if it doesn't exist
+if [ ! -d "$NVIM_DIR" ]; then
+    echo "Creating $NVIM_DIR directory..."
+    mkdir -p "$NVIM_DIR"
+fi
+
+# Copy the Neovim configuration file
+if [ -f "$REPO_PATH/rc/nvim.lua" ]; then
+    echo "Copying Neovim configuration to $NVIM_DIR/init.lua..."
+    cp "$REPO_PATH/rc/nvim.lua" "$NVIM_DIR/init.lua"
+    echo "Neovim configuration installed successfully."
+else
+    echo "Error: $REPO_PATH/rc/nvim.lua not found!"
+    exit 1
+fi
+
 # Check if the symlink already exists and points to nvim
 if [[ -L "$SYMLINK_PATH" && "$(readlink "$SYMLINK_PATH")" == "$NVIM_PATH" ]]; then
     echo "Symlink $SYMLINK_PATH already exists and points to nvim. No changes made."
