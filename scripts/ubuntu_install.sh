@@ -198,6 +198,25 @@ sudo apt install -y \
     libsndfile1-dev \
     libsodium-dev \
     libsoxr-dev \
+    libxcursor1 \
+    libxrandr-dev \
+    libxcb-cursor0 \
+    libxcb1 \
+    libxcb-util1 \
+    libxcb-keysyms1 \
+    libxcb-icccm4 \
+    libxcb-render0 \
+    libxcb-shape0 \
+    libxcb-sync1 \
+    libxcb-xfixes0 \
+    libxcb-shm0 \
+    libxcb-dri2-0 \
+    libxcb-dri3-0 \
+    libxcb-present0 \
+    libxcb-glx0 \
+    libxcb-xinerama0 \
+    libxcb-xkb1 \
+    libxkbcommon-x11-0 \
     libssh-dev \
     libssh2-1-dev \
     libtasn1-6-dev \
@@ -270,6 +289,7 @@ sudo apt install -y \
     x264 \
     x265 \
     xclip \
+    xdotool \
     xz-utils \
     libzmq3-dev \
     zoxide \
@@ -452,13 +472,19 @@ EOL
 sudo sysctl --system
 
 # --- Network DNS Configuration ---
+# NOTE: This section is commented out to prevent network disruption during installation
+# If you need to configure DNS for 'toal-mesh' connection, run these commands manually after installation:
+# sudo nmcli connection modify "toal-mesh" ipv4.dns "8.8.8.8 8.8.4.4"
+# sudo nmcli connection modify "toal-mesh" ipv4.ignore-auto-dns yes
+# sudo systemctl restart NetworkManager
+#
 # Set Google DNS for 'toal-mesh' Wi-Fi connection to avoid DNS/routing issues
 # If you experience site-specific timeouts (e.g., Spotify), check your DNS settings and try a VPN
 # To troubleshoot: try 'curl -v https://accounts.spotify.com/login' and verify DNS with 'resolvectl status'
-echo "Configuring Google DNS for 'toal-mesh' Wi-Fi connection..."
-sudo nmcli connection modify "toal-mesh" ipv4.dns "8.8.8.8 8.8.4.4"
-sudo nmcli connection modify "toal-mesh" ipv4.ignore-auto-dns yes
-sudo systemctl restart NetworkManager
+# echo "Configuring Google DNS for 'toal-mesh' Wi-Fi connection..."
+# sudo nmcli connection modify "toal-mesh" ipv4.dns "8.8.8.8 8.8.4.4"
+# sudo nmcli connection modify "toal-mesh" ipv4.ignore-auto-dns yes
+# sudo systemctl restart NetworkManager
 
 # --- Linux Performance Optimizations ---
 echo "Applying Linux performance optimizations..."
@@ -579,4 +605,46 @@ sudo dpkg -i obsidian.deb
 sudo apt-get install -f -y  # Install any missing dependencies
 rm obsidian.deb
 
-# --- Install Google Chrome --- 
+# --- Install Calibre ---
+echo "Installing Calibre..."
+if ! command -v calibre &> /dev/null; then
+    # Download and install Calibre
+    wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin
+    echo "Calibre installed successfully!"
+else
+    echo "Calibre is already installed"
+fi
+
+# --- Install Google Chrome ---
+
+# --- Setup Neovim Configuration ---
+echo "Setting up Neovim configuration..."
+
+# Create the nvim config directory if it doesn't exist
+NVIM_DIR="$HOME/.config/nvim"
+if [ ! -d "$NVIM_DIR" ]; then
+    echo "Creating $NVIM_DIR directory..."
+    mkdir -p "$NVIM_DIR"
+fi
+
+# Copy the Neovim configuration file
+REPO_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+if [ -f "$REPO_PATH/rc/nvim.lua" ]; then
+    echo "Copying Neovim configuration to $NVIM_DIR/init.lua..."
+    cp "$REPO_PATH/rc/nvim.lua" "$NVIM_DIR/init.lua"
+    echo "Neovim configuration installed successfully."
+else
+    echo "Warning: $REPO_PATH/rc/nvim.lua not found! Neovim configuration not installed."
+fi
+
+echo ""
+echo "=== IMPORTANT NOTES ==="
+echo "1. Network DNS configuration was skipped to prevent installation disruption."
+echo "   If you need to configure DNS for 'toal-mesh' connection, run these commands manually:"
+echo "   sudo nmcli connection modify 'toal-mesh' ipv4.dns '8.8.8.8 8.8.4.4'"
+echo "   sudo nmcli connection modify 'toal-mesh' ipv4.ignore-auto-dns yes"
+echo "   sudo systemctl restart NetworkManager"
+echo ""
+echo "2. Some packages may have been installed already. The script is idempotent."
+echo ""
+echo "Installation script completed!" 
