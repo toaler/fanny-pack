@@ -313,9 +313,6 @@ _fzf_comprun() {
   esac
 }
 
-# thefuck setup
-eval "$(thefuck --alias)"
-
 # zoxide
 eval "$(zoxide init zsh)"
 
@@ -331,3 +328,13 @@ setopt hist_verify
 # completion using arrow keys (based on history)
 bindkey '^[[A' history-search-backward
 bindkey '^[[B' history-search-forward
+
+# Initialize zoxide for smart directory jumping
+if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init zsh)"
+fi
+
+# Use batcat as bat on Ubuntu
+if command -v batcat &> /dev/null; then
+  alias bat='batcat'
+fi
